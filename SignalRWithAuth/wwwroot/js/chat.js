@@ -15,14 +15,23 @@ connection.on("ReceiveMessage", function (user, message) {
 
 connection.start().then(function () {
     document.getElementById("sendButton").disabled = false;
+    document.getElementById("sendButtonToUser").disabled = false;
 }).catch(function (err) {
     return console.error(err.toString());
 });
 
 function sendMessage(event, username) {
     var message = document.getElementById("messageInput").value;
-    connection.invoke("SendMessage", username, message).catch(function (err) {
+    connection.invoke("SendMessageToBot", username, message).catch(function (err) {
         return console.error(err.toString());
     });
     event.preventDefault();
 };
+
+function sendMessageToUser(event, username) {
+    var message = document.getElementById("messageInputUser").value;
+    connection.invoke("SendMessageToUser", username, message).catch(function (err) {
+        return console.error(err.toString());
+    });
+    event.preventDefault();
+}

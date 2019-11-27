@@ -8,7 +8,7 @@ namespace SignalRWithAuth.Hubs
     {
         static readonly HttpClient client = new HttpClient();
 
-        public async Task SendMessage(string user, string message)
+        public async Task SendMessageToBot(string user, string message)
         {
             var url = $"https://localhost:44306/api/randomresponse/{message}";
 
@@ -16,8 +16,13 @@ namespace SignalRWithAuth.Hubs
             response.EnsureSuccessStatusCode();
             string responseBody = await response.Content.ReadAsStringAsync();
 
+            await Clients.Caller.SendAsync("ReceiveMessage", user, message);
+            await Clients.Caller.SendAsync("ReceiveMessage", "Bot", responseBody);
+        }
+
+        public async Task SendMessageToUser(string user, string message)
+        {
             await Clients.All.SendAsync("ReceiveMessage", user, message);
-            await Clients.All.SendAsync("ReceiveMessage", "Bot", responseBody);
         }
     }
 }
