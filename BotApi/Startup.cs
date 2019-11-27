@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using BotApi.Interfaces;
+using BotApi.Sercives;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -19,6 +21,8 @@ namespace BotApi
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+
+            services.AddSingleton<IChatService, ChatService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
