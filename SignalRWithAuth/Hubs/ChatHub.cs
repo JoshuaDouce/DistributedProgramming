@@ -10,7 +10,7 @@ namespace SignalRWithAuth.Hubs
 
         public async Task SendMessage(string user, string message)
         {
-            var url = "https://localhost:44306/api/randomresponse";
+            var url = $"https://localhost:44306/api/randomresponse/{message}";
 
             var response = await client.GetAsync(url);
             response.EnsureSuccessStatusCode();

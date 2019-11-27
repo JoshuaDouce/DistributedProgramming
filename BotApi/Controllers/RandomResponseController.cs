@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace BotApi.Controllers
 {
-    [Route("api/[controller]")]
     [ApiController]
     public class RandomResponseController : ControllerBase
     {
@@ -16,9 +15,10 @@ namespace BotApi.Controllers
 
         // GET: api/RandomResponse
         [HttpGet]
-        public string Get()
+        [Route("api/randomresponse/{message}")]
+        public string Get(string message)
         {
-            return ChatService.GetResponse("Message");
+            return ChatService.GetResponse(message);
         }
     }
 }
